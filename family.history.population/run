@@ -1,0 +1,1 @@
+ant -Dcsv=file:test/test.csv -DinOntology=file:test/ontology.owl -DoutOntology=test/output.owl

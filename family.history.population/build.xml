@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project name="abox_populate" default="run" basedir=".">
+
+  <!-- Enviroment -->
+  <property environment="env"/>
+
+  <!-- Global Properties -->
+
+  <property name="build" location="build"/>
+  <property name="project.name" value="abox_populate" />
+  <property name="src" location="src" />
+  <property name="lib" location="lib" />
+  <property name="dist" location="dist" />
+  <property name="runner" value="uk.ac.manchester.cs.owl.comp60421.Test" />
+
+
+  <path id="project.class.path">
+    <pathelement location="${build}" />
+    <fileset dir="lib" >
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <target name="compile" description="Compile source files" depends="clean">
+    <mkdir dir="${build}"/>
+    <javac source="1.5" target="1.5" srcdir="${src}" destdir="${build}" debug="yes" deprecation="yes">
+      <classpath refid="project.class.path"/>
+    </javac>
+
+    <copy todir="${build}">
+      <fileset dir="${src}">
+        <exclude name="**/*.java" />
+      </fileset>
+    </copy>
+
+  </target>
+
+
+  <target name="jar" depends="compile">
+
+    <pathconvert dirsep="/" pathsep=" " property="Class-Path">
+      <map from="${lib}/" to="./lib/" />
+      <map from="${lib}\" to="./lib/" />
+      <!--" (dumb vim problem with quotes)-->
+      <path>
+        <fileset dir="lib">
+          <include name="*.jar" />
+        </fileset>
+      </path>
+    </pathconvert>
+
+    <jar jarfile="${project.name}.jar" basedir="${build}">
+      <manifest>
+        <attribute name="Class-Path" value="${Class-Path}" />
+        <attribute name="Main-Class" value="${runner}" />
+      </manifest>
+    </jar>
+
+  </target>
+
+  <target name="run" depends="compile">
+
+    <echo message="CSV file URI: ${csv}"/>
+    <echo message="Input ontology URI: ${inOntology}"/>
+    <echo message="Output ontology URI: ${outOntology}"/>
+
+    <java classname="${runner}" classpathref="project.class.path">
+      <arg value="${csv}"/>
+      <arg value="${inOntology}"/>
+      <arg value="${outOntology}"/>
+    </java>
+
+  </target>
+
+  <target name="clean" description="Clean up build files">
+    <delete dir="${build}"/>
+  </target>
+
+</project>

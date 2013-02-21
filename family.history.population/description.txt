@@ -1,0 +1,45 @@
+A data set describing aspects of family history forms the content of this exercise. It contains information about people and the occupations or roles they played. This was discussed during the lecture in Week 3.
+
+Each individual described has associated information:
+
+Surname
+Married Surname (if known)
+Birth Year (if known)
+Given Names (i.e. first name)
+Along with this, there will be a number (possibly zero) of roles/occupations played. For each of these there will be
+Year (if known)
+Source
+Occupation (if known -- this may be "none given", stating that the role is unknown).
+
+Data is provided as CSV (comma separated values). Code is given that will parse this CSV file into a collection of Bean Objects with appropriate get and set methods. The parser returns a collection of Beans, representing each row in the spreadsheet. You can assume that given name, surname and date of birth are sufficient to distinguish different individuals. If no year, source or occupation is given in a row, this row can be ignored. 
+
+For the assignment, you will write a Java program that populates an ontology with this data using the OWL API (version 3.2.4). The ontology containing class and property definitions is given in the archive. You should not need to provide any additional Classes, Properties or definitions to the ontology -- all your additions should concern individuals.
+
+Each person identified in the data should be represented as a named individual (of type Person) in the ontology. Each role played should result in an instance of RolePlayed, with appropriate relationships to a Role instance, a Source and a year (if known). As discussed in the class, the individuals representing roles played may be named, while some may be left as anonymous individuals. The choice is yours. The names of role classes in the CSV file should match those given in the Role hierarchy in the ontology, but note that you may have to do a small amount of processing to map roles/occupations in the data to Roles in the ontology. Hint: you may need to think carefully about how to handle the special case "none given", which is not the name of a role (!), but is used to indicate that no explicit role was named. 
+
+Your submissions will be tested by loading a set of unseen data and then evaluating queries against this data. A sample set of data is provided in test/test.csv. The ontology for population is provided in test/ontology.owl. 
+
+You will need to implement 3 methods in the uk.ac.manchester.cs.owl.comp60421.Main class:
+
+1) loadOntology(OWLOntologyManager manager, IRI ontologyIRI) - Loading ontology from physical IRI
+
+2) populateOntology(OWLOntologyManager manager, OWLOntology ontology, Collection<JobDataBean> beans) - Populating the ontology using the
+collection of Java beans holding the data from CSV. 
+
+3) saveOntology(OWLOntologyManager manager, OWLOntology ontology, IRI locationIRI) - Saving the ontology back to disk
+
+You can add additional methods to this class if you wish, but do not change the signature of these methods or of the no-argument constructor. 
+
+A harness is supplied that allows you to run code and evaluate queries. This is an ant script. A command to run the ant script will look like:
+
+ant run -Dcsv=file:./test/test.csv -DinOntology=file:./test/ontology.owl -DoutOntology=results.owl
+
+This will take the input from test/test.csv, the ontology from test/ontology.owl and will produce a populated ontology in results.owl. 
+
+The "run" file is a shell file for Windows which invokes Ant for the local files test/test.csv and test/ontology.owl. 
+
+You should use the stated OWL API version -- failure to do so will result in marking penalties.
+
+If you use an IDE to develop your code make sure that the code will compile using the harness -- failure to do so will result in marking penalties.
+
+Once you have finished the assignment, you should submit a zip archive of the *src* directory. Make sure that any classes you write are in this directory!
