@@ -11,8 +11,8 @@
 ]>
 
 
-<rdf:RDF xmlns="http://www.cs.manchester.ac.uk/pgt/COMP60421/FamilyHistory#"
-     xml:base="http://www.cs.manchester.ac.uk/pgt/COMP60421/FamilyHistory"
+<rdf:RDF xmlns="http://www.IS.kfu.ac.uk/pgt/COMP60421/covid19#"
+     xml:base="http://www.IS.kfu.ac.uk/pgt/COMP60421/FamilyHistory"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
      xmlns:ship="http://www.cs.manchester.ac.uk/pgt/COMP60421/FamilyHistory#ship:"
